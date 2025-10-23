@@ -1,0 +1,29 @@
+{
+  inputs,
+  host,
+  ...
+}:
+{
+  imports = [
+    ./boot.nix
+    ./flatpak.nix
+    ./fonts.nix
+    ./hardware.nix
+    ./network.nix
+    ./nfs.nix
+    ./nh.nix
+    ./packages.nix
+    ./printing.nix
+    ./greetd.nix
+    ./security.nix
+    ./services.nix
+    ./stylix.nix
+    ./syncthing.nix
+    ./system.nix
+    ./thunar.nix
+    ./user.nix
+    ./virtualisation.nix
+    ./xserver.nix
+    inputs.stylix.nixosModules.stylix
+  ];
+}
