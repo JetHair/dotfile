@@ -12,7 +12,7 @@
     ./gtk.nix
     ./mango
     ./nvim
-    ./obs.nix
+    # ./obs.nix
     ./packages.nix
     ./scripts
     ./shell

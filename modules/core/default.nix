@@ -12,7 +12,6 @@
     ./network.nix
     ./nfs.nix
     ./nh.nix
-    ./packages.nix
     ./printing.nix
     ./greetd.nix
     ./security.nix

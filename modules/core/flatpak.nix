@@ -14,7 +14,6 @@
       # Examples:
       packages = [
         "com.stremio.Stremio"
-
         # Add other Flatpak IDs here, e.g., "org.mozilla.firefox"
       ];
 

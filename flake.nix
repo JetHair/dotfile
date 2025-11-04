@@ -6,11 +6,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    neovim-nightly = {
-      url = "github:nix-community/neovim-nightly-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
+    nvim = {
+      url = "github:jethair/nvim";
     };
-    mangowc = {
+    mango = {
       url = "github:DreamMaoMao/mangowc";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -24,8 +23,9 @@
     {
       nixpkgs,
       home-manager,
+      nvim,
       nix-flatpak,
-      mangowc,
+      mango,
       ...
     }@inputs:
     let
@@ -47,10 +47,13 @@
           };
           modules = [
             ./profiles/${gpuProfile}
+            mango.nixosModules.mango
             nix-flatpak.nixosModules.nix-flatpak
-            inputs.mangowc.nixosModules.mango
+            home-manager.nixosModules.default
             {
-              programs.mango.enable = true;
+              home-manager.sharedModules = [
+                mango.hmModules.mango
+              ];
             }
           ];
         };
