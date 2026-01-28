@@ -20,7 +20,7 @@
     recursive = true;
   };
   home.file."Pictures/Wallpapers" = {
-    source = ../../../wallpapers;
+    source = ../../../../wallpapers;
     recursive = true;
   };
   wayland.windowManager.mango = {

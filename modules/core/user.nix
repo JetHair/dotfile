@@ -25,6 +25,14 @@ in
         host
         ;
     };
+    users.ideal= {
+      imports = [ ./../user/ideal];
+      home = {
+        username = "ideal";
+        homeDirectory = "/home/ideal";
+        stateVersion = "23.11";
+      };
+    };
     users.${homeuser} = {
       imports = [ ./../user/home ];
       home = {
@@ -43,6 +51,22 @@ in
     };
   };
   users.mutableUsers = true;
+  users.users.ideal = {
+    isNormalUser = true;
+    description = "${gitUsername}";
+    extraGroups = [
+      "adbusers"
+      "docker" # access to docker as non-root
+      "libvirtd" # Virt manager/QEMU access
+      "lp"
+      "networkmanager"
+      "scanner"
+      "wheel" # subdo access
+      "vboxusers" # Virtual Box
+    ];
+    shell = pkgs.zsh;
+    ignoreShellProgramCheck = true;
+  };
   users.users.${homeuser} = {
     isNormalUser = true;
     description = "${gitUsername}";
@@ -78,5 +102,6 @@ in
   nix.settings.allowed-users = [
     "${homeuser}"
     "${workuser}"
+    "ideal"
   ];
 }
