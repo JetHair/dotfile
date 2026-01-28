@@ -1,9 +1,9 @@
 {
   pkgs,
   inputs,
-  username,
+  workuser,
+  homeuser,
   host,
-  profile,
   ...
 }:
 let
@@ -20,22 +20,30 @@ in
     extraSpecialArgs = {
       inherit
         inputs
-        username
+        workuser
+        homeuser
         host
-        profile
         ;
     };
-    users.${username} = {
-      imports = [ ./../home ];
+    users.${homeuser} = {
+      imports = [ ./../user/home ];
       home = {
-        username = "${username}";
-        homeDirectory = "/home/${username}";
+        username = "${homeuser}";
+        homeDirectory = "/home/${homeuser}";
+        stateVersion = "23.11";
+      };
+    };
+    users.${workuser} = {
+      imports = [ ./../user/work ];
+      home = {
+        username = "${workuser}";
+        homeDirectory = "/home/${workuser}";
         stateVersion = "23.11";
       };
     };
   };
   users.mutableUsers = true;
-  users.users.${username} = {
+  users.users.${homeuser} = {
     isNormalUser = true;
     description = "${gitUsername}";
     extraGroups = [
@@ -51,5 +59,24 @@ in
     shell = pkgs.zsh;
     ignoreShellProgramCheck = true;
   };
-  nix.settings.allowed-users = [ "${username}" ];
+  users.users.${workuser} = {
+    isNormalUser = true;
+    description = "${gitUsername}";
+    extraGroups = [
+      "adbusers"
+      "docker" # access to docker as non-root
+      "libvirtd" # Virt manager/QEMU access
+      "lp"
+      "networkmanager"
+      "scanner"
+      "wheel" # subdo access
+      "vboxusers" # Virtual Box
+    ];
+    shell = pkgs.zsh;
+    ignoreShellProgramCheck = true;
+  };
+  nix.settings.allowed-users = [
+    "${homeuser}"
+    "${workuser}"
+  ];
 }

@@ -13,7 +13,7 @@ in
       ];
     };
   };
-  time.timeZone = "Asia/Kolkata";
+  time.timeZone = "Asia/Kathmandu";
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "en_US.UTF-8";

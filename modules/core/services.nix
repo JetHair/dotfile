@@ -1,4 +1,4 @@
-{ profile, ... }:
+{ ... }:
 {
   # Services to start
   services = {
@@ -27,7 +27,7 @@
       };
     };
     smartd = {
-      enable = if profile == "vm" then false else true;
+      enable = true;
       autodetect = true;
     };
     pipewire = {

@@ -1,5 +1,5 @@
 {
-  description = "Basic MangoWC flake";
+  description = "Basic flake with MangoWC";
 
   inputs = {
     home-manager = {
@@ -16,7 +16,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     stylix.url = "github:danth/stylix";
     nix-flatpak.url = "github:gmodena/nix-flatpak?ref=latest";
-    zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    zen-browser.url = "github:youwen5/zen-browser-flake";
   };
 
   outputs =
@@ -30,41 +30,31 @@
     }@inputs:
     let
       system = "x86_64-linux";
-      host = "ideal";
-      profile = "nvidia-laptop";
-      username = "ideal";
-
-      # Deduplicate nixosConfigurations while preserving the top-level 'profile'
-      mkNixosConfig =
-        gpuProfile:
-        nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = {
-            inherit inputs;
-            inherit username;
-            inherit host;
-            inherit profile; # keep using the let-bound profile for modules/scripts
-          };
-          modules = [
-            ./profiles/${gpuProfile}
-            mango.nixosModules.mango
-            nix-flatpak.nixosModules.nix-flatpak
-            home-manager.nixosModules.default
-            {
-              home-manager.sharedModules = [
-                mango.hmModules.mango
-              ];
-            }
-          ];
-        };
+      host = "laptop";
+      homeuser = "home";
+      workuser = "work";
     in
     {
-      nixosConfigurations = {
-        amd = mkNixosConfig "amd";
-        nvidia = mkNixosConfig "nvidia";
-        nvidia-laptop = mkNixosConfig "nvidia-laptop";
-        intel = mkNixosConfig "intel";
-        vm = mkNixosConfig "vm";
+      nixosConfigurations.${host} = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = {
+          inherit inputs;
+          inherit homeuser;
+          inherit workuser;
+          inherit host;
+          self = inputs.self.outPath;
+        };
+        modules = [
+          ./drivers/default.nix
+          mango.nixosModules.mango
+          nix-flatpak.nixosModules.nix-flatpak
+          home-manager.nixosModules.default
+          {
+            home-manager.sharedModules = [
+              mango.hmModules.mango
+            ];
+          }
+        ];
       };
     };
 }
