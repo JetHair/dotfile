@@ -1,6 +1,5 @@
 {
   inputs,
-  host,
   ...
 }:
 {
@@ -9,8 +8,8 @@
     ./flatpak.nix
     ./fonts.nix
     ./hardware.nix
+    ./host-packages.nix
     ./network.nix
-    ./nfs.nix
     ./nh.nix
     ./printing.nix
     ./greetd.nix

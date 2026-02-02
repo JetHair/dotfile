@@ -115,9 +115,11 @@
                 "",
                 "",
                 " "
-            ]
+            ],
+            "headphone": " ",
+            "headset": "󰋎 "
         },
-        "format-muted": " ",
+        "format-muted": " "
     },
     "temperature": {
         "format": " {temperatureC}°C "

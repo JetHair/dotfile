@@ -79,7 +79,7 @@
         {
           type = "host";
           format = "{5} {1} Type {2}";
-          key = "PC(work)";
+          key = "PC(ideal)";
           keyColor = "33";
         }
         {

@@ -1,30 +1,14 @@
 { host, ... }:
 {
   imports = [
-    ./bat.nix
-    ./btop.nix
-    ./emoji.nix
-    ./eza.nix
+    ../common
     ./fetch
-    ./fzf.nix
-    ./gh.nix
-    ./git.nix
-    ./gtk.nix
     ./mango
-    ./nvim
     ./packages.nix
-    ./scripts
-    ./shell
     ./starship.nix
     ./stylix.nix
-    ./swaync
-    ./swaylock
-    ./tealdeer.nix
-    ./virtmanager.nix
+    ./qutebrowser
     ./waybar
-    ./wezterm.nix
-    ./xdg.nix
-    ./yazi
-    ./zoxide.nix
   ];
 }
+

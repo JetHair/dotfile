@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   home.packages = with pkgs; [
@@ -36,6 +36,7 @@
     ncdu # Disk Usage Analyzer With Ncurses Interface
     lolcat # Add Colors To Your Terminal Command Output
     qutebrowser
+    inputs.zen-browser.packages.x86_64-linux.default
     # viber
   ];
 }

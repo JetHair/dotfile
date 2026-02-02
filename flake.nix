@@ -45,7 +45,7 @@
           self = inputs.self.outPath;
         };
         modules = [
-          ./drivers/default.nix
+          ./hosts/${host}
           mango.nixosModules.mango
           nix-flatpak.nixosModules.nix-flatpak
           home-manager.nixosModules.default
