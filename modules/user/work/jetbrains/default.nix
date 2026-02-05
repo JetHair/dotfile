@@ -5,6 +5,6 @@
     jetbrains.phpstorm
   ];
   home.file = {
-    ".ideavimrc".source = ./ideavimrc;
+    ".ideavimrc".source = ./.ideavimrc;
   };
 }
