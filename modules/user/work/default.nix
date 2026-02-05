@@ -3,6 +3,7 @@
   imports = [
     ../common
     ./fetch
+    ./jetbrains
     ./mango
     ./packages.nix
     ./starship.nix
@@ -11,4 +12,3 @@
     ./waybar
   ];
 }
-

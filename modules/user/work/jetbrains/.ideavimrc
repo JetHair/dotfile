@@ -1,0 +1,111 @@
+" ── Leader keys
+let mapleader = " "
+let maplocalleader = " "
+
+" ── Line numbers
+set number
+set relativenumber
+
+" ── Search
+set hlsearch
+
+" ── Scrolloff
+set scrolloff=10
+
+" ── Indentation (sane defaults)
+set expandtab
+set smartindent
+set autoindent
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+
+" ── Undo & UI
+set undofile
+set termguicolors
+
+" Note: IdeaVim does not support winborder setting
+" You can ignore or remove this line:
+" set winborder=single
+
+" Colorscheme (make sure you have the colorscheme plugin/theme installed)
+colorscheme compline
+
+" Clear statusline background (if your colorscheme supports it)
+highlight StatusLine guibg=NONE
+
+" ── Keymaps helper
+" (no vim.keymap.set → we use regular map commands)
+
+" LSP mappings
+nnoremap <leader>lr :action RenameElement<CR>          " [r]ename
+nnoremap <leader>lf :action ReformatCode<CR>           " [f]ormat buffer
+
+" Toggle diagnostics virtual text
+function! s:ToggleDiagnosticsVirtualText()
+  " IdeaVim doesn't have direct access → use IDE action or skip
+  " Alternative: toggle via IDE inspection settings or use plugin
+  echo "Diagnostics toggle not directly supported in IdeaVim"
+endfunction
+nnoremap <leader>ld :call <SID>ToggleDiagnosticsVirtualText()<CR>
+
+" ── Built-in completion (trigger manually)
+inoremap <C-l> <C-x><C-o>
+set completeopt=menu,menuone,noselect,fuzzy,noinsert
+
+" ── Clipboard (system clipboard)
+xnoremap <leader>y "+y
+nnoremap <leader>y "+y
+nnoremap <leader>yy "+yy
+nnoremap <leader>Y "+yy
+xnoremap <leader>Y "+yy
+nnoremap <leader>p "+p
+xnoremap <leader>p "+p
+
+" ── Smart-splits like navigation
+" Install smart-splits plugin if you want these exact bindings
+" Otherwise use built-in IDE actions or IdeaVim window commands
+nnoremap <M-h> <C-w>h
+nnoremap <M-j> <C-w>j
+nnoremap <M-k> <C-w>k
+nnoremap <M-l> <C-w>l
+" <M-\> previous window is trickier – consider plugin or remap
+
+" ── Clear search highlight
+nnoremap <Esc> :nohlsearch<CR>
+
+" ── Undo tree (needs undotree plugin installed)
+nnoremap <leader>u :UndotreeToggle<CR>
+
+" ── Highlight on yank
+augroup YankHighlight
+  autocmd!
+  autocmd TextYankPost * silent! lua vim.highlight.on_yank()
+augroup END
+
+" ── Fuzzy finder mappings (using Fuzzier plugin)
+" Install Fuzzier plugin from JetBrains Marketplace first!
+
+" Find help → use IDE action
+nnoremap <leader>fh :action SearchEverywhere<CR>
+
+" Find files
+nnoremap <leader>ff :FuzzierFiles<CR>
+
+" Find word under cursor
+nnoremap <leader>fw :FuzzierGrep <C-r><C-w><CR>
+
+" Live grep
+nnoremap <leader>fg :FuzzierGrep<CR>
+
+" Find buffers
+nnoremap <leader><space> :action Switcher<CR>   " or install buffer switcher plugin
+
+" Find highlight groups (not directly supported – skip or use IDE)
+" nnoremap <leader>fH ...
+
+" Find diagnostics
+nnoremap <leader>fd :action ShowIntentionActions<CR>   " or use Problems view
+
+" Alternative: if you use FuzzyFileSearch plugin instead
+" nnoremap <leader>ff :FuzzyFileSearch<CR>

@@ -5,6 +5,7 @@
     ./btop.nix
     ./emoji.nix
     ./eza.nix
+    ./jetbrains.nix
     ./fzf.nix
     ./gh.nix
     ./git.nix
