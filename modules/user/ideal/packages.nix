@@ -16,6 +16,7 @@
     impala
     eog
     kitty
+    google-chrome
     bluetui
     vesktop
     vlc

@@ -1,111 +1,53 @@
-" ── Leader keys
+set scrolloff=10
+set number
+set relativenumber
+set ignorecase
+set smartcase
+set incsearch
+set notimeout
+set which-key
+
 let mapleader = " "
 let maplocalleader = " "
 
-" ── Line numbers
-set number
-set relativenumber
+nnoremap <leader><CR> :nohlsearch<CR>
+nmap <leader>z <Action>(ToggleDistractionFreeMode)
 
-" ── Search
-set hlsearch
+nnoremap L :action NextTab<CR>
+nnoremap H :action PreviousTab<CR>
 
-" ── Scrolloff
-set scrolloff=10
 
-" ── Indentation (sane defaults)
-set expandtab
-set smartindent
-set autoindent
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+" Go to / peek / diagnostics (very similar to kickstart.nvim lsp mappings)
+nnoremap gd         :action GotoDeclaration<CR>
+nnoremap gD         :action GotoImplementation<CR>
+nnoremap gr         :action FindUsages<CR>
+nnoremap gi         :action GotoImplementation<CR>
+nnoremap gy         :action GotoTypeDeclaration<CR>
+nnoremap K          :action QuickJavaDoc<CR>
+nnoremap <leader>lr :action RenameElement<CR>
+nnoremap <leader>lf :action ReformatCode<CR>
+nnoremap <leader>ld :action ShowIntentionActions<CR>
 
-" ── Undo & UI
-set undofile
-set termguicolors
+" Diagnostics / problems (like Trouble.nvim)
+nnoremap <leader>xx :action ViewCodeProblems<CR>
+nnoremap <leader>xn :action GotoNextError<CR>
+nnoremap <leader>xp :action GotoPreviousError<CR>
 
-" Note: IdeaVim does not support winborder setting
-" You can ignore or remove this line:
-" set winborder=single
+" ─────────────────────────────────────────────────────────────────────────────
+" Search / Find ────────────────────────────────────────────────────────────────
+" ─────────────────────────────────────────────────────────────────────────────
 
-" Colorscheme (make sure you have the colorscheme plugin/theme installed)
-colorscheme compline
+nmap <Leader>ff <action>(com.mituuz.fuzzier.search.Fuzzier)
+nmap <Leader>fg <action>(com.mituuz.fuzzier.grep.FuzzyGrep)
+" Grepping
+nmap <Leader>fG <action>(com.mituuz.fuzzier.grep.FuzzyGrepOpenTabsCI)
+nmap <Leader>f/ <action>(com.mituuz.fuzzier.grep.FuzzyGrepCurrentBuffer)
 
-" Clear statusline background (if your colorscheme supports it)
-highlight StatusLine guibg=NONE
+" Reload config
+nnoremap <leader>vr :source ~/.ideavimrc<CR>
 
-" ── Keymaps helper
-" (no vim.keymap.set → we use regular map commands)
+" Edit config
+nnoremap <leader>vv :e ~/.ideavimrc<CR>
 
-" LSP mappings
-nnoremap <leader>lr :action RenameElement<CR>          " [r]ename
-nnoremap <leader>lf :action ReformatCode<CR>           " [f]ormat buffer
-
-" Toggle diagnostics virtual text
-function! s:ToggleDiagnosticsVirtualText()
-  " IdeaVim doesn't have direct access → use IDE action or skip
-  " Alternative: toggle via IDE inspection settings or use plugin
-  echo "Diagnostics toggle not directly supported in IdeaVim"
-endfunction
-nnoremap <leader>ld :call <SID>ToggleDiagnosticsVirtualText()<CR>
-
-" ── Built-in completion (trigger manually)
-inoremap <C-l> <C-x><C-o>
-set completeopt=menu,menuone,noselect,fuzzy,noinsert
-
-" ── Clipboard (system clipboard)
-xnoremap <leader>y "+y
-nnoremap <leader>y "+y
-nnoremap <leader>yy "+yy
-nnoremap <leader>Y "+yy
-xnoremap <leader>Y "+yy
-nnoremap <leader>p "+p
-xnoremap <leader>p "+p
-
-" ── Smart-splits like navigation
-" Install smart-splits plugin if you want these exact bindings
-" Otherwise use built-in IDE actions or IdeaVim window commands
-nnoremap <M-h> <C-w>h
-nnoremap <M-j> <C-w>j
-nnoremap <M-k> <C-w>k
-nnoremap <M-l> <C-w>l
-" <M-\> previous window is trickier – consider plugin or remap
-
-" ── Clear search highlight
-nnoremap <Esc> :nohlsearch<CR>
-
-" ── Undo tree (needs undotree plugin installed)
-nnoremap <leader>u :UndotreeToggle<CR>
-
-" ── Highlight on yank
-augroup YankHighlight
-  autocmd!
-  autocmd TextYankPost * silent! lua vim.highlight.on_yank()
-augroup END
-
-" ── Fuzzy finder mappings (using Fuzzier plugin)
-" Install Fuzzier plugin from JetBrains Marketplace first!
-
-" Find help → use IDE action
-nnoremap <leader>fh :action SearchEverywhere<CR>
-
-" Find files
-nnoremap <leader>ff :FuzzierFiles<CR>
-
-" Find word under cursor
-nnoremap <leader>fw :FuzzierGrep <C-r><C-w><CR>
-
-" Live grep
-nnoremap <leader>fg :FuzzierGrep<CR>
-
-" Find buffers
-nnoremap <leader><space> :action Switcher<CR>   " or install buffer switcher plugin
-
-" Find highlight groups (not directly supported – skip or use IDE)
-" nnoremap <leader>fH ...
-
-" Find diagnostics
-nnoremap <leader>fd :action ShowIntentionActions<CR>   " or use Problems view
-
-" Alternative: if you use FuzzyFileSearch plugin instead
-" nnoremap <leader>ff :FuzzyFileSearch<CR>
+" Which-key style help (IdeaVim has :actionlist)
+nnoremap <leader>? :action GotoAction<CR>
