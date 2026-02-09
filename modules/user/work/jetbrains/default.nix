@@ -3,9 +3,9 @@
 {
   home.packages = with pkgs; [
     jetbrains.phpstorm
-    php
+    php85
     php.extensions.xdebug
-    composer
+    php85Packages.composer
   ];
   home.file = {
     ".ideavimrc".source = ./.ideavimrc;
