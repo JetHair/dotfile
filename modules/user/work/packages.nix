@@ -9,6 +9,8 @@
     file-roller
     cliphist
     qutebrowser
+    discord
+    discordo
     (callPackage ./bitwarden.nix { })
   ];
 }

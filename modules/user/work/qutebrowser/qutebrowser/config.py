@@ -4,6 +4,10 @@ config = config  # noqa: F821 pylint: disable=E0602,C0103
 # pylint settings included to disable linting errors
 
 c.tabs.show = "multiple"
+# In your ~/.config/qutebrowser/config.py
+
+# Create an alias :o that opens URLs in a new tab
+c.aliases = {'o': 'open -t'}
 
 # c.url.start_pages = ""
 # c.url.default_page = ""
